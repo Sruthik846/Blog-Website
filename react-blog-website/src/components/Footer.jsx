@@ -4,8 +4,8 @@ import { FaTwitter,FaFacebook,FaInstagram } from 'react-icons/fa6'
 const Footer = () => {
   return (
     <div className='bg-gray-900'>
-        <div className='px-4 pt-14 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-4'>
-            <div className=' grid lg:grid-col-6 mb-8'> 
+        <div className='px-4 pt-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-4'>
+            <div className='mb-8 grid lg:grid-cols-6'> 
                 <div className='grid grid-cols-2 gap-5 md:grid-cols-4 lg:col-span-4'>
                     <div>
                         <p className=' tracking-wide font-medium text-gray-300'>Category</p>
@@ -80,9 +80,7 @@ const Footer = () => {
                                 <a href="/" className='text-gray-500 transition-colors duration-300 hover:text-orange-500'>Entertainments</a>
                             </li>
                         </ul>
-                    </div>
-
-                    
+                    </div>   
                 </div>
 
                 {/* Subscribe */}
