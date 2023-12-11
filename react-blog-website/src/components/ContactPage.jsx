@@ -9,6 +9,7 @@ const ContactPage = () => {
             {/* contact image */}
             <div className="flex justify-center items-center">
                 <img src={contactImg} alt="Image" className="w-full " />
+                {/* <img src={contactImg} alt="Image" className="w-full " /> */}
             </div>
 
             {/* contact Form */}
