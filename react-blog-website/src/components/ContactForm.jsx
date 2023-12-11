@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 
 const ContactForm = () => {;
-    const intialvalues = {fullname : "",email:"",subject:"",message:""};
+    const form = useRef();
+    const intialvalues = {from_name : "",email:"",subject:"",message:""};
     const [formValues, setFormValues] = useState(intialvalues);
     const [formErrors, setFormErrors] = useState({});
     const [isSubmit, setIsSubmit] = useState(false);
@@ -12,11 +15,18 @@ const ContactForm = () => {;
         setFormErrors(validate(formValues));
     }
 
-    const handleSubmit = (e) => {
+    const sendEmail = (e) => {
         e.preventDefault();
         setFormErrors(validate(formValues));
         setIsSubmit(true);
+        emailjs.sendForm('service_wztcjrd', 'template_eqttbuj', form.current, 'fXsCHNL2sbZaqGfJE')
+      .then((result) => {
+          console.log('Success :',result.text);
+      }, (error) => {
+          console.log('Error :',error.text);
+      });
     }
+ 
 
     useEffect(() => {
         if (Object.keys(formErrors).length === 0 && isSubmit) {
@@ -26,40 +36,38 @@ const ContactForm = () => {;
 
     const validate = (values) => {
         const errors = {};
-        const  regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-        if (!values.fullname){
-            errors.fullname = "fullname is required";
-        } else if (values.fullname.length < 3){
-            errors.fullname = "name should be more than 3 characters";
+        // const  regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+        if (!values.from_name){
+            errors.from_name = "Fullname is required";
+        } else if (values.from_name.length < 3){
+            errors.from_name = "name should be more than 3 characters";
         }
         if (!values.email){
             errors.email = "Email is required";
-        } else if ( !regex.test(values.email)){
-            errors.email = "This is not a valid email format!"
-        }
+        } 
         if (!values.subject){
             errors.subject = "Subject is required";
         }
         if (!values.message){
             errors.message = "Message is required";
         }
-        console.log(errors);
+        // console.log(errors);
         return errors;
 
     }
   return (
-    <form className="bg-white rounded px-8 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+    <form className="bg-white rounded px-8 pt-6 pb-8 mb-4" ref={form} onSubmit={sendEmail}>
         <div className="mb-4">
             <label className="block text-gray-600 font-semibold mb-2">Full Name</label>
             <input
             className="appearance-none border rounded w-full p-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline mb-1"
-            id="fullname"
+            id="from_name"
             type="text"
-            name="fullname"
-            value={formValues.fullname}
+            name="from_name"
+            value={formValues.from_name}
             onChange={hanleChange}
             placeholder="Full Name"/>
-        <p className="text-red-500 text-sm">{formErrors.fullname}</p>
+        <p className="text-red-500 text-sm">{formErrors.from_name}</p>
         </div>
 
         {/* email */}
